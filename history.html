@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History | Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body onload="loadHistory()">
+  <header>
+    <h1>Expense Tracker</h1>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="history.html">History</a>
+      <button onclick="logout()" class="logout-btn">Logout</button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>All Transactions</h2>
+    <ul id="historyList" class="list"></ul>
+  </div>
+
+  <footer>
+    <p>Expense Tracker © 2025</p>
+  </footer>
+
+  <script src="tracker.js"></script>
+</body>
+</html>
