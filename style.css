@@ -95,7 +95,8 @@ footer {
   background: #2d89ef;
   color: white;
   text-align: center;
-  padding: 10px;
+  padding: 5px 10px; /* smaller padding */
+  font-size: 12px;   /* smaller text */
   position: fixed;
   bottom: 0;
   width: 100%;
