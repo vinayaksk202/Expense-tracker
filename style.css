@@ -1,3 +1,4 @@
+/* General Styles */
 * {
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
@@ -8,6 +9,7 @@ body {
   background: #f4f4f4;
 }
 
+/* Header */
 header {
   background: #2d89ef;
   color: white;
@@ -15,11 +17,23 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap; /* allow items to wrap on small screens */
+}
+
+header h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 nav a {
   color: white;
-  margin-right: 15px;
   text-decoration: none;
   font-weight: bold;
 }
@@ -33,24 +47,35 @@ nav a {
   cursor: pointer;
 }
 
+/* Container */
 .container {
   max-width: 600px;
+  width: 90%;
   background: white;
   margin: 30px auto;
   padding: 20px;
   border-radius: 10px;
 }
 
+/* Summary Boxes */
 .summary {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap; /* stack on small screens */
   background: #fafafa;
   border-radius: 10px;
   padding: 10px 0;
   margin-bottom: 20px;
 }
 
-.form-section input {
+.summary div {
+  flex: 1 1 120px; /* responsive width */
+  margin: 5px;
+  text-align: center;
+}
+
+/* Forms */
+.form-section input, input[type=text], input[type=number] {
   width: 100%;
   padding: 8px;
   margin: 6px 0;
@@ -68,6 +93,7 @@ nav a {
   cursor: pointer;
 }
 
+/* Lists */
 .list {
   list-style: none;
   padding: 0;
@@ -91,13 +117,44 @@ nav a {
   border-color: #e74c3c;
 }
 
+/* Footer */
 footer {
   background: #2d89ef;
   color: white;
   text-align: center;
-  padding: 5px 10px; /* smaller padding */
-  font-size: 12px;   /* smaller text */
-  position: fixed;
-  bottom: 0;
+  padding: 5px 10px; /* smaller padding for mobile */
+  font-size: 12px;
   width: 100%;
+  position: relative; /* not fixed, sits naturally */
+}
+
+/* Media Queries for Mobile */
+@media only screen and (max-width: 480px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  header h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  nav {
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .summary div {
+    flex: 1 1 100%; /* stack summary boxes vertically */
+  }
+
+  .container {
+    margin: 15px 10px;
+    padding: 15px;
+  }
+
+  .form-section button {
+    padding: 8px;
+  }
 }
