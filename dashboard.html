@@ -13,14 +13,9 @@
 
 </head>
 <body onload="loadDashboard()">
-  <header>
-  <h1><i class="fa-solid fa-wallet"></i> Expense Tracker</h1>
-  <nav>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="history.html">History</a>
-    <button onclick="logout()" class="logout-btn">Logout</button>
-  </nav>
-</header>
+  <header> <h1><i class="fa-solid fa-wallet"></i> Expense Tracker</h1> <nav> <a href="dashboard.html">Dashboard</a> <a href="history.html">History</a> <a href="analytics.html">Analytics</a> <span id="monthlyTotal" style="color:white; font-weight:bold;">Total: ₹0</span> <button onclick="logout()" class="logout-btn">Logout</button> </nav> </header>
+
+
 
 
   <div class="container">
@@ -43,6 +38,16 @@
 
     <h3>Recent Transactions</h3>
     <ul id="recentList" class="list"></ul>
+    
+    <div class="form-section">
+  <h3>Set Monthly Budget</h3>
+  <input type="number" id="budgetInput" placeholder="Enter your monthly budget">
+  <button onclick="setBudget()">Set Budget</button>
+  <p id="remainingBudget" style="margin-top:10px; font-weight:bold; color:#2d89ef;">
+    Remaining: ₹0
+  </p>
+</div>
+
 
     <div class="form-section">
       <h3>Add Transaction</h3>
