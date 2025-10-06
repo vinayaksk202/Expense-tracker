@@ -158,3 +158,62 @@ footer {
     padding: 8px;
   }
 }
+
+/* Header */
+header {
+  background: #2d89ef;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Menu button */
+.menu-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Dropdown menu */
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  right: 20px;
+  top: 60px;
+  background: #2d89ef;
+  border-radius: 6px;
+  padding: 10px;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 1000;
+}
+
+.menu-dropdown a,
+.menu-dropdown button {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  text-align: left;
+  display: block;
+  border-radius: 5px;
+  background: transparent;
+  width: 150px;
+}
+
+.menu-dropdown a:hover,
+.menu-dropdown button:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Logout button inside dropdown */
+.menu-dropdown .logout-btn {
+  background: #ff4c4c;
+  width: 100%;
+  text-align: center;
+  padding: 6px 10px;
+}
+
