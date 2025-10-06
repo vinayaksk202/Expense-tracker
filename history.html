@@ -8,13 +8,16 @@
 </head>
 <body onload="loadHistory()">
   <header>
-    <h1>Expense Tracker</h1>
-    <nav>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="history.html">History</a>
-      <button onclick="logout()" class="logout-btn">Logout</button>
-    </nav>
-  </header>
+  <h1><i class="fa-solid fa-wallet"></i> Expense Tracker</h1>
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="history.html">History</a>
+    <a href="analytics.html">Analytics</a>
+    <span id="monthlyTotal" style="color:white; font-weight:bold;">Total: ₹0</span>
+    <button onclick="logout()" class="logout-btn">Logout</button>
+  </nav>
+</header>
+
 
   <div class="container">
     <h2>All Transactions</h2>
