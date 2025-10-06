@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics | Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body onload="loadAnalytics()">
+  <header>
+    <h1>Expense Tracker</h1>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="history.html">History</a>
+      <a href="analytics.html">Analytics</a>
+      <button onclick="logout()" class="logout-btn">Logout</button>
+    </nav>
+  </header>
+
+<div class="container">
+  <h2>Expense Analytics</h2>
+  <div style="text-align:center; margin-bottom:10px;">
+    <button onclick="showAnalytics('day')">Daily</button>
+    <button onclick="showAnalytics('month')">Monthly</button>
+    <button onclick="showAnalytics('year')">Yearly</button>
+  </div>
+  <canvas id="expenseChart"></canvas>
+</div>
+
+ 
+  <footer>
+    <p>Expense Tracker © 2025</p>
+  </footer>
+
+  <script>
+function getCurrentUser() {
+  return localStorage.getItem('currentUser');
+}
+
+let chart; // global variable to update chart
+
+function loadAnalytics() {
+  showAnalytics('day'); // default view
+}
+
+function showAnalytics(period) {
+  const user = getCurrentUser();
+  if (!user) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  const users = JSON.parse(localStorage.getItem('users'));
+  const transactions = users[user].transactions || [];
+
+  let labels = [];
+  let data = [];
+
+  const now = new Date();
+
+  if (period === 'day') {
+    // Daily expenses for last 7 days
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(now.getDate() - i);
+      const dayStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      labels.push(dayStr);
+
+      const dayExpense = transactions
+        .filter(t => {
+          const td = new Date(t.date);
+          return td.getDate() === d.getDate() &&
+                 td.getMonth() === d.getMonth() &&
+                 td.getFullYear() === d.getFullYear() &&
+                 t.amount < 0;
+        })
+        .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+      data.push(dayExpense);
+    }
+  } else if (period === 'month') {
+    // Monthly expenses for this year
+    for (let m = 0; m < 12; m++) {
+      const monthName = new Date(now.getFullYear(), m).toLocaleString('default', { month: 'short' });
+      labels.push(monthName);
+
+      const monthExpense = transactions
+        .filter(t => {
+          const td = new Date(t.date);
+          return td.getMonth() === m && td.getFullYear() === now.getFullYear() && t.amount < 0;
+        })
+        .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+      data.push(monthExpense);
+    }
+  } else if (period === 'year') {
+    // Expenses per year (last 5 years)
+    const currentYear = now.getFullYear();
+    for (let y = currentYear - 4; y <= currentYear; y++) {
+      labels.push(y.toString());
+
+      const yearExpense = transactions
+        .filter(t => new Date(t.date).getFullYear() === y && t.amount < 0)
+        .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+      data.push(yearExpense);
+    }
+  }
+
+  const ctx = document.getElementById('expenseChart');
+
+  if (chart) chart.destroy(); // destroy old chart if exists
+
+  chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Expenses (₹)',
+        data: data,
+        backgroundColor: '#e74c3c'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true },
+      }
+    }
+  });
+}
+
+function logout() {
+  localStorage.removeItem('currentUser');
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
